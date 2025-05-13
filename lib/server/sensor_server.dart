@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
-import 'package:shelf_router/shelf_router.dart' as shelf_router; // Added
 import 'routes.dart';
 import '../data/sensor_fetcher.dart'; // Required for ApiRoutes
 
