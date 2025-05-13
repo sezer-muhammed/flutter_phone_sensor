@@ -22,9 +22,16 @@ class ApiRoutes {
   }
 
   Future<shelf.Response> _handleGetImu(shelf.Request request) async {
-    final accelData = await sensorFetcher.getCurrentAccelerometer();
-    final gyroData = await sensorFetcher.getCurrentGyroscope();
-    final magData = await sensorFetcher.getCurrentMagnetometer();
+    // Fetch sensor data concurrently
+    final results = await Future.wait<List<double>?>([
+      sensorFetcher.getCurrentAccelerometer(),
+      sensorFetcher.getCurrentGyroscope(),
+      sensorFetcher.getCurrentMagnetometer(),
+    ]);
+
+    final accelData = results[0]; // No cast needed due to Future.wait<List<double>?>
+    final gyroData = results[1];
+    final magData = results[2];
 
     final sensorData = SensorData(
       accelerometer: accelData,

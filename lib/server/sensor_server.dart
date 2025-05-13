@@ -32,6 +32,7 @@ class SensorServer {
   }
 
   void close() {
+    _sensorFetcher.dispose(); // ADDED: Dispose the sensor fetcher
     _server?.close(force: true).then((_) {
       // print("Server closed");
     }).catchError((e) {
